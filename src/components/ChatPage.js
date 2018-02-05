@@ -46,6 +46,8 @@ class ChatPage extends Component {
   }
 
   render() {
+    // console.log(this.props.location.pathname);
+
     const user = firebase.auth().currentUser;
     const { listChat } = this.state;
 
