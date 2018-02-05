@@ -71,7 +71,7 @@ class ChatPage extends Component {
             <label htmlFor="message">Enter something and hit "Send!"</label>
           </div>
           <div className="row">
-            <button className="btn-large waves-effect waves-light pink" onClick={() => this.handleSend()}><i className="material-icons left">chat_bubble</i>Send via @{user.email}</button>
+            <button className="btn-large waves-effect waves-light pink pulse" onClick={() => this.handleSend()}><i className="material-icons left">chat_bubble</i>Send via {user.email}</button>
           </div>
         </div>
       </div>

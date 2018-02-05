@@ -54,7 +54,7 @@ export const Footer = () => {
             </div>
             <div className="footer-copyright">
                 <div className="container">
-                    &copy; 2018 Created by <a className="white-text text-lighten-3" href="http://mrhmt.com" target="_blank">TuHM</a>
+                    &copy; 2018 Created by <a className="white-text text-lighten-3" href="http://mrhmt.com" target="_blank">Huynh Minh Tu</a>
                 </div>
             </div>
         </footer>

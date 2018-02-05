@@ -35,13 +35,13 @@ export class Header extends React.Component {
       <div>
         <nav className="light-blue lighten-1" role="navigation">
           <div className="nav-wrapper container">
-            <a id="logo-container" href="#" className="brand-logo"><i className="material-icons">cloud</i>Cloud App</a>
+            <a id="logo-container" className="brand-logo"><i className="material-icons">cloud</i>Cloud App</a>
             <ul className="right hide-on-med-and-down">
               <li className={location === "/dashboard/" ? "active" : ""}>
-                <Link to={`/dashboard/`}>Dashboard</Link>
+                <Link to={`/dashboard/`}><i className="material-icons left">dashboard</i>Dashboard</Link>
               </li>
               <li className={location === "/chat/" ? "active" : ""}>
-                <Link to={`/chat/`}>Chat</Link>
+                <Link to={`/chat/`}><i className="material-icons left">chat_bubble</i>Chat</Link>
               </li>
               <li>
                 <a href="#" onClick={startLogout()}>Logout</a>

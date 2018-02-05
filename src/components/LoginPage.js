@@ -3,17 +3,40 @@ import { connect } from 'react-redux';
 import { startGoogleLogin, startEmailLogin, startEmailSignup } from '../actions/auth';
 
 export class LoginPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalMessage: ""
+    };
+  }
+
   handleEmailLogin(signup) {
+    const elem = document.querySelector('.modal');
+    const option = {
+      opacity: 0.1,
+      dismissible: false
+    };
+    const instance = M.Modal.init(elem, option);
+
     if (this.refs.email.value === "" || this.refs.password.value === "") {
-      M.toast({ html: "Please enter your Email and Password!", classes: "rounded" });
+      this.setState({
+        modalMessage: "Please enter your Email and Password!"
+      });
+      instance.open();
     } else {
       if (signup) {
         startEmailSignup(this.refs.email.value, this.refs.password.value, (error) => {
-          M.toast({ html: error, classes: "rounded" });
+          this.setState({
+            modalMessage: error.message
+          });
+          instance.open();
         });
       } else {
         startEmailLogin(this.refs.email.value, this.refs.password.value, (error) => {
-          M.toast({ html: error, classes: "rounded" });
+          this.setState({
+            modalMessage: error.message
+          });
+          instance.open();
         });
       }
     }
@@ -54,6 +77,16 @@ export class LoginPage extends Component {
         <div className="divider"></div>
         <div className="row center">
           <p>Copyright &copy; 2018 Huynh Minh Tu.</p>
+        </div>
+
+        <div id="login" className="modal">
+          <div className="modal-content">
+            <h4>Cloud has an Error!</h4>
+            <p>{this.state.modalMessage}</p>
+          </div>
+          <div className="modal-footer">
+            <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">I know</a>
+          </div>
         </div>
       </div>
     );
