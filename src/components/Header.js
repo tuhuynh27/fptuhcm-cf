@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
 
 import { firebase } from '../firebase/firebase';
-import $ from 'jquery'
 
 export class Header extends React.Component {
   componentDidMount() {
