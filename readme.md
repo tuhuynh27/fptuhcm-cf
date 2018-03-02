@@ -1,7 +1,6 @@
-# Git Commands
+# Blue Cloud App
 
-git init - Create a new git repo
-git status - View the changes to your project code
-git add - Add files to staging area
-git commit - Creates a new commit with files from staging area
-git log - View recent commits
+List of completed functions:
+- Real-time chat board
+
+Copyright by Huynh Minh Tu
