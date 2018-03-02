@@ -17,7 +17,7 @@ class ChatPage extends Component {
   }
 
   handleSend() {
-    if (this.refs.message.value === "") {
+    if (this.refs.message.value.trim() === "") {
       M.toast({ html: "Please enter something to send!", classes: "rounded" });
       this.refs.message.focus();
     } else {
@@ -34,7 +34,7 @@ class ChatPage extends Component {
     }
   };
 
-  componentDidMount() {
+  componentWillMount() {
     database.ref("chat").limitToLast(10).on("value", (data) => {
       const listChat = data.val();
       this.setState({

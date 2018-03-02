@@ -9,13 +9,10 @@ class DashboardPage extends Component {
   render() {
     return (
       <div>
-        <div className="parallax-container valign-wrapper" style={{height: "400px"}}>
+        <div className="parallax-container valign-wrapper" style={{ height: "400px" }}>
           <div className="row center">
-            <div className="card-panel light-blue lighten-2 white-text">
-              <h5>Say hello to the future.</h5>
-            </div>
           </div>
-          <div className="parallax"><img src="https://i.imgur.com/6OiVyuZ.jpg" alt="Unsplashed background img 3" /></div>
+          <div className="parallax"><img src="https://i.imgur.com/6OiVyuZ.jpg" alt="" /></div>
         </div>
 
         <div className="container">

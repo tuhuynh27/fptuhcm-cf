@@ -56,7 +56,7 @@ export class LoginPage extends Component {
             <button className="btn-large waves-effect waves-light blue" onClick={startGoogleLogin()}><i className="material-icons left">account_circle</i>Login with Google account</button>
           </div>
           <div className="row">
-            <div className="col s12 m6 offset-m3">
+            <div className="col s12 m10 offset-m1">
               <div className="card white darken-1 hoverable">
                 <div className="card-content black-text">
                   <div className="card-title blue-text">Login / Signup with email and password</div>
