@@ -35,7 +35,7 @@ export class Header extends React.Component {
       <div>
         <nav className="light-blue lighten-1" role="navigation">
           <div className="nav-wrapper container">
-            <a id="logo-container" className="brand-logo"><i className="material-icons">cloud</i>Cloud App</a>
+            <a id="logo-container" className="brand-logo"><i className="material-icons">work</i>FU Zone</a>
             <ul className="right hide-on-med-and-down">
               <li className={location === "/dashboard/" ? "active" : ""}>
                 <Link to={`/dashboard/`}><i className="material-icons left">dashboard</i>Dashboard</Link>
@@ -93,8 +93,8 @@ export class Header extends React.Component {
 
         <div className="tap-target cyan" data-target="menu">
           <div className="tap-target-content white-text">
-            <h5><i className="material-icons left">cloud</i>Cloud Guide</h5>
-            <p>Hi, this is just the beta version. What the fuck is Cloud Guide?</p>
+            <h5><i className="material-icons left">cloud</i>Developer Guide</h5>
+            <p>Hi, this is just the beta version. Please click Report Bug if any bug.</p>
           </div>
         </div>
       </div>

@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { startGoogleLogin, startEmailLogin, startEmailSignup } from '../actions/auth';
 
+import { database } from '../firebase/firebase';
+
 import Footer from '../components/Footer';
 
 export class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoginMode: false,
+      isConfessSent: false,
       modalMessage: ""
     };
   }
@@ -44,53 +48,166 @@ export class LoginPage extends Component {
     }
   }
 
+  handleChangeMode() {
+    this.setState({
+      isLoginMode: !this.state.isLoginMode
+    });
+  }
+
+  handleCloseModal(e) {
+    e.preventDefault();
+
+    const elem = document.querySelector('.modal');
+    const instance = M.Modal.getInstance(elem);
+
+    instance.close();
+  }
+
+  handleSendConfess() {
+    const elem = document.querySelector('.modal');
+    const option = {
+      opacity: 0.8,
+      dismissible: false
+    };
+    const instance = M.Modal.init(elem, option);
+
+
+    if (this.refs.sendto.value === "" || this.refs.message.value === "") {
+      this.setState({
+        modalMessage: "Please enter Send To and Message field!"
+      });
+      instance.open();
+    } else {
+      const confessRef = database.ref("confess");
+      const data = {
+        sendto: this.refs.sendto.value,
+        message: this.refs.message.value,
+        time: new Date().toLocaleString(),
+        status: 0,
+        approver: "",
+        reason: "",
+        hide: false
+      };
+
+      confessRef.push(data);
+
+      M.toast({ html: `Confession sent to ${this.refs.sendto.value}, waiting approve by admin, thank you!`, classes: "rounded" });
+
+      this.setState({
+        isConfessSent: true
+      });
+    }
+  }
+
+
   render() {
-    return (
-      <div>
-        <div className="container">
-          <h1 className="header center blue-text">Cloud Application</h1>
-          <div className="row center">
-            <h5 className="header col s12 light">Sorry, guest has no access permission. Login to explore the whole app.</h5>
-          </div>
-          <div className="row center">
-            <button className="btn-large waves-effect waves-light blue" onClick={startGoogleLogin()}><i className="material-icons left">account_circle</i>Login with Google account</button>
-          </div>
-          <div className="row">
-            <div className="col s12 m10 offset-m1">
-              <div className="card white darken-1 hoverable">
-                <div className="card-content black-text">
-                  <div className="card-title blue-text">Login / Signup with email and password</div>
-                  <div className="input-field ">
-                    <input id="email" ref="email" type="email" />
-                    <label htmlFor="email">Email</label>
+    const { isLoginMode } = this.state;
+
+    if (isLoginMode) {
+      return (
+        <div>
+          <div className="container">
+            <h1 className="header center blue-text">FU Confession AdminCP</h1>
+            <div className="row center">
+              <h5 className="header col s12 light">Sorry, guest has no access permission. Login to explore the whole app.</h5>
+            </div>
+            {/* <div className="row center">
+              <button className="btn-large waves-effect waves-light blue" onClick={startGoogleLogin()}><i className="material-icons left">account_circle</i>Login with Google account</button>
+            </div> */}
+            <div className="row">
+              <div className="col s12 m8 offset-m2">
+                <div className="card white darken-1 hoverable">
+                  <div className="card-content black-text">
+                    <div className="card-title blue-text">Login with email and password</div>
+                    <div className="input-field ">
+                      <input id="email" ref="email" type="email" />
+                      <label htmlFor="email">Email</label>
+                    </div>
+                    <div className="input-field ">
+                      <input id="password" ref="password" type="password" />
+                      <label htmlFor="password">Password</label>
+                    </div>
+                    <div className="card-action center">
+                      <button className="btn waves-effect waves-light green" onClick={() => this.handleEmailLogin()}><i className="material-icons left">cloud_done</i>Login</button>
+                      &nbsp;
+                  {/* <button className="btn waves-effect waves-light pink" onClick={() => this.handleEmailLogin(true)}><i className="material-icons left">cloud_upload</i>Signup</button> */}
+                    </div>
                   </div>
-                  <div className="input-field ">
-                    <input id="password" ref="password" type="password" />
-                    <label htmlFor="password">Password</label>
+                </div>
+              </div>
+
+              <div className="row">
+                <button className="btn waves-effect waves-light green right" onClick={() => this.handleChangeMode()}><i className="material-icons left">chevron_left</i>Back to Send Confession</button>
+              </div>
+            </div>
+
+            <div id="login" className="modal">
+              <div className="modal-content">
+                <h4>FU Confession AdminCP Error!</h4>
+                <p>{this.state.modalMessage}</p>
+              </div>
+              <div className="modal-footer">
+                <a className="modal-action modal-close waves-effect waves-green btn-flat" onClick={(e) => this.handleCloseModal(e)}>I know</a>
+              </div>
+            </div>
+          </div>
+          <Footer />
+        </div>
+      );
+    } else {
+      const { isConfessSent } = this.state;
+
+      return (
+        <div>
+          <div className="container">
+            <h1 className="header center blue-text">FU Confession App</h1>
+            <div className="row">
+              <p className="col s8 offset-s2 light">"Lost love is still love. It takes a different form, that's all. You can't see their smile or bring them food or tousle their hair or move them around a dance floor. But when those senses weaken another heightens. Memory. Memory becomes your partner. You nurture it. You hold it. You dance with it."</p>
+            </div>
+            <div className="row">
+              <div className="col s12 m8 offset-m2">
+                <div className="card white darken-1 hoverable">
+                  <div className={`card-content black-text ${isConfessSent ? "hide" : null}`}>
+                    <div className="card-title blue-text">Make Your Confession</div>
+                    <div className="input-field ">
+                      <input id="sendto" ref="sendto" type="text" />
+                      <label htmlFor="sendto">Send to</label>
+                    </div>
+                    <div className="input-field ">
+                      <textarea id="message" ref="message" className="materialize-textarea" style={{ height: "100px" }}></textarea>
+                      <label htmlFor="message">Confess Message</label>
+                    </div>
+                    <div className="card-action center">
+                      <button className="btn waves-effect waves-light green" onClick={() => this.handleSendConfess()}><i className="material-icons left">check</i>Be brave, send It!</button>
+                    </div>
                   </div>
-                  <div className="card-action center">
-                    <button className="btn waves-effect waves-light green" onClick={() => this.handleEmailLogin()}><i className="material-icons left">cloud_done</i>Login</button>
-                    &nbsp;
-                  <button className="btn waves-effect waves-light pink" onClick={() => this.handleEmailLogin(true)}><i className="material-icons left">cloud_upload</i>Signup</button>
+                  <div className={`card-content black-text ${!isConfessSent ? "hide" : null}`}>
+                    <div className="card-title blue-text">Your confess has been sent!</div>
+                    <div>Thank you! If your confess is valid, it will be available on fanpage soon!</div>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div className="row">
+              <button className="btn waves-effect waves-light blue right" onClick={() => this.handleChangeMode()}><i className="material-icons left">chevron_right</i>Login to FU Confession</button>
+            </div>
+
+            <div id="login" className="modal">
+              <div className="modal-content">
+                <h4>FU Confess report an error!</h4>
+                <p>{this.state.modalMessage}</p>
+              </div>
+              <div className="modal-footer">
+                <a className="modal-action modal-close waves-effect waves-green btn-flat" onClick={(e) => this.handleCloseModal(e)}>I know</a>
+              </div>
+            </div>
           </div>
 
-          <div id="login" className="modal">
-            <div className="modal-content">
-              <h4>Cloud has an Error!</h4>
-              <p>{this.state.modalMessage}</p>
-            </div>
-            <div className="modal-footer">
-              <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">I know</a>
-            </div>
-          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    );
+      );
+    }
   }
 }
 
