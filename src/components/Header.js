@@ -50,17 +50,7 @@ export class Header extends React.Component {
 
             <ul id="nav-mobile" className="sidenav">
               <li>
-                <div className="user-view">
-                  <div className="background">
-                    <img src="http://farm5.staticflickr.com/4708/40046920422_a03a9f91cf_o.jpg" />
-                  </div>
-                  <a href="#"><img className="circle" src="http://farm5.staticflickr.com/4715/39181461255_8b91235cd7_o.png" /></a>
-                  <a href="#"><span className="white-text name">User</span></a>
-                  <a href="#"><span className="white-text email">{user.email}</span></a>
-                </div>
-              </li>
-              <li>
-                <a href="#"><i className="material-icons">cloud</i>Cloud App</a>
+                <a href="#"><i className="material-icons">work</i>FU Insight</a>
               </li>
               <li>
                 <div className="divider"></div>

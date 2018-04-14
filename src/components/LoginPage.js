@@ -102,6 +102,20 @@ export class LoginPage extends Component {
     }
   }
 
+  handleImageUpload() {
+    const elem = document.querySelector('.modal');
+    const option = {
+      opacity: 0.8,
+      dismissible: false
+    };
+    const instance = M.Modal.init(elem, option);
+
+    this.setState({
+      modalMessage: "You can go to some online image upload to upload your image, then paste the image url into the confessions message."
+    });
+    instance.open();
+  }
+
 
   render() {
     const { isLoginMode } = this.state;
@@ -110,9 +124,9 @@ export class LoginPage extends Component {
       return (
         <div>
           <div className="container">
-            <h1 className="header center blue-text">FU Confession AdminCP</h1>
+            <h1 className="header center blue-text">FUHCM Confession AdminCP</h1>
             <div className="row center">
-              <h5 className="header col s12 light">Sorry, guest has no access permission. Login to explore the whole app.</h5>
+              <h5 className="header col s12 light">Sorry, guest has no access permission. You must be a staff of FUHCM Confessions.</h5>
             </div>
             {/* <div className="row center">
               <button className="btn-large waves-effect waves-light blue" onClick={startGoogleLogin()}><i className="material-icons left">account_circle</i>Login with Google account</button>
@@ -151,7 +165,7 @@ export class LoginPage extends Component {
 
           <div id="login" className="modal">
             <div className="modal-content">
-              <h4>FU Confession AdminCP Error!</h4>
+              <h4>FUHCM Confession AdminCP Error!</h4>
               <p>{this.state.modalMessage}</p>
             </div>
             <div className="modal-footer">
@@ -179,8 +193,13 @@ export class LoginPage extends Component {
                       <textarea id="message" ref="message" className="materialize-textarea" style={{ height: "200px" }}></textarea>
                       <label htmlFor="message">Confess Message</label>
                     </div>
-                    <div className="card-action center">
-                      <button className="btn waves-effect waves-light green" onClick={() => this.handleSendConfess()}><i className="material-icons left">check</i>Be brave, send It!</button>
+                    <div className="row center">
+                      <div className="col s6">
+                        <button className="btn waves-effect waves-light green" onClick={() => this.handleSendConfess()}><i className="material-icons left">check</i>Be brave, send It!</button>
+                      </div>
+                      <div className="col s6">
+                        <button className="btn waves-effect waves-light orange" onClick={() => this.handleImageUpload()}><i className="material-icons left">file_upload</i>Add Image</button>
+                      </div>
                     </div>
                   </div>
                   <div className={`card-content black-text ${!isConfessSent ? "hide" : null}`}>
@@ -192,14 +211,14 @@ export class LoginPage extends Component {
             </div>
 
             <div className="row">
-              <button className="btn waves-effect waves-light blue right" onClick={() => this.handleChangeMode()}><i className="material-icons left">chevron_right</i>Login to FU Confession</button>
+              <button className="btn waves-effect waves-light blue right" onClick={() => this.handleChangeMode()}><i className="material-icons left">chevron_right</i>Login to FUHCM Confession Insight</button>
             </div>
           </div>
           <Footer />
 
           <div id="login" className="modal">
             <div className="modal-content">
-              <h4>FU Confess report an error!</h4>
+              <h4>FUHCM Confess report an error!</h4>
               <p>{this.state.modalMessage}</p>
             </div>
             <div className="modal-footer">

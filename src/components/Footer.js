@@ -17,19 +17,19 @@ export const Footer = () => {
             and continue development on this project and is greatly appreciated.</p>
                     </div>
                     <div className="col l3 s12">
-                        <h5 className="white-text">Settings</h5>
+                        <h5 className="white-text">FPT Refs</h5>
                         <ul>
                             <li>
-                                <a className="white-text" href="#!">Link 1</a>
+                                <a className="white-text" href="http://lms-undergrad.fpt.edu.vn/" target="_blank">LMS</a>
                             </li>
                             <li>
-                                <a className="white-text" href="#!">Link 2</a>
+                                <a className="white-text" href="http://fap.fpt.edu.vn/" target="_blank">FAP</a>
                             </li>
                             <li>
-                                <a className="white-text" href="#!">Link 3</a>
+                                <a className="white-text" href="http://daihoc.fpt.edu.vn/" target="_blank">FU Home</a>
                             </li>
                             <li>
-                                <a className="white-text" href="#!">Link 4</a>
+                                <a className="white-text" href="https://www.facebook.com/FuHcmConfess/" target="_blank">FUHCM CFS</a>
                             </li>
                         </ul>
                     </div>
@@ -37,16 +37,10 @@ export const Footer = () => {
                         <h5 className="white-text">Connect</h5>
                         <ul>
                             <li>
-                                <a className="white-text" href="#!">Link 1</a>
+                                <a className="white-text" href="https://www.facebook.com/1001SuThatDHFPT/" target="_blank">1001 Truths about FU</a>
                             </li>
                             <li>
-                                <a className="white-text" href="#!">Link 2</a>
-                            </li>
-                            <li>
-                                <a className="white-text" href="#!">Link 3</a>
-                            </li>
-                            <li>
-                                <a className="white-text" href="#!">Link 4</a>
+                                <a className="white-text" href="https://www.facebook.com/FuHcmConfess/" target="_blank">FUHCM Chatbot</a>
                             </li>
                         </ul>
                     </div>
@@ -54,7 +48,7 @@ export const Footer = () => {
             </div>
             <div className="footer-copyright">
                 <div className="container">
-                    &copy; 2018 Made with love in <a className="white-text text-lighten-3" href="http://fpt.edu.vn" target="_blank">FPT University</a>. <button className="btn pink waves-effect waves-light right"><i className="material-icons left">cloud</i> Report bug</button>
+                    &copy; 2018 Made with love in <a className="white-text text-lighten-3" href="http://fpt.edu.vn" target="_blank">FPT University</a>. <a href="https://www.messenger.com/t/mr.huynhminhtu" target="_blank"><button className="btn pink waves-effect waves-light right"><i className="material-icons left">cloud</i> Report bug</button></a>
                 </div>
             </div>
         </footer>
