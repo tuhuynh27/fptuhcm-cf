@@ -124,7 +124,9 @@ export class LoginPage extends Component {
       return (
         <div>
           <div className="container">
-            <h1 className="header center blue-text">FUHCM Confession AdminCP</h1>
+            <div className="row center">
+              <img src="http://imagizer.imageshack.us/a/img923/2498/D2xGjq.png" width="50%" />
+            </div>
             <div className="row center">
               <h5 className="header col s12 light">Sorry, guest has no access permission. You must be a staff of FUHCM Confessions.</h5>
             </div>
@@ -180,7 +182,9 @@ export class LoginPage extends Component {
       return (
         <div>
           <div className="container">
-            <h1 className="header center blue-text">FUHCM Confession App</h1>
+            <div className="row center">
+              <img src="http://imagizer.imageshack.us/a/img923/2498/D2xGjq.png" width="50%" />
+            </div>
             <div className="row">
               <p className="col s8 offset-s2 light">"Lost love is still love. It takes a different form, that's all. You can't see their smile or bring them food or tousle their hair or move them around a dance floor. But when those senses weaken another heightens. Memory. Memory becomes your partner. You nurture it. You hold it. You dance with it."</p>
             </div>
