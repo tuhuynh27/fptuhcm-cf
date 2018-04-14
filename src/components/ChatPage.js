@@ -60,7 +60,7 @@ class ChatPage extends Component {
 
     return (
       <div className="container">
-        <h2>Chat & Note Something</h2>
+        <h2>Chat & Note</h2>
         <ul className="collection hoverable">
           {keys.length > 0 ? null : <li className="collection-item">Loading...</li>}
           {renderChat}
