@@ -194,10 +194,10 @@ export class LoginPage extends Component {
                       <label htmlFor="message">Confess Message</label>
                     </div>
                     <div className="row center">
-                      <div className="col s6">
+                      <div className="col s12 m6">
                         <button className="btn waves-effect waves-light green" onClick={() => this.handleSendConfess()}><i className="material-icons left">check</i>Be brave, send It!</button>
                       </div>
-                      <div className="col s6">
+                      <div className="col s12 m6">
                         <button className="btn waves-effect waves-light orange" onClick={() => this.handleImageUpload()}><i className="material-icons left">file_upload</i>Add Image</button>
                       </div>
                     </div>
