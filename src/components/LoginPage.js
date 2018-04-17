@@ -192,7 +192,7 @@ export class LoginPage extends Component {
               <div className="col s12 m8 offset-m2">
                 <div className="card white darken-1 hoverable">
                   <div className={`card-content black-text ${isConfessSent ? "hide" : null}`}>
-                    <div className="card-title blue-text">Make Your Confession</div>
+                    <div className="card-title blue-text">Make Your Confess</div>
                     <div className="input-field ">
                       <textarea id="message" ref="message" className="materialize-textarea" style={{ height: "200px" }}></textarea>
                       <label htmlFor="message">Confess Message</label>
