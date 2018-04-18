@@ -17,7 +17,7 @@ export const Footer = () => {
             and continue development on this project and is greatly appreciated. </p>
                     </div>
                     <div className="col l3 s12">
-                        <h5 className="white-text">FPT Refss</h5>
+                        <h5 className="white-text">FPT Refs</h5>
                         <ul>
                             <li>
                                 <a className="white-text" href="http://lms-undergrad.fpt.edu.vn/" target="_blank">LMS</a>
