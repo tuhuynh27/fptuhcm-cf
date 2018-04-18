@@ -51,12 +51,6 @@ export class LoginPage extends Component {
         startEmailLogin(
           this.refs.email.value,
           this.refs.password.value,
-          () => {
-            M.toast({
-              html: "Thank you for loggged in, you are a",
-              classes: "rounded"
-            });
-          },
           error => {
             this.setState({
               modalMessage: error.message
@@ -220,18 +214,18 @@ export class LoginPage extends Component {
       return (
         <div>
           <div className="container">
-          <div className="row center"><img src="http://imagizer.imageshack.us/a/img923/2498/D2xGjq.png" width="50%"/></div>
+            <div className="row center"><img src="http://imagizer.imageshack.us/a/img923/2498/D2xGjq.png" width="50%" /></div>
             <div className="row">
               <div className="col s8 offset-s2 light">
-                Seek loves start! ^-^ Hard to say but easy to write! Small think!!! ^^ Your secret always safe with us! ♥<br/>
+                Something is hard to say but we easily write down what we think. Do not think difficultly. We ensure that your secret is obviously safe. ♥<br />
                 <ul className="collection">
                   <li className="collection-item">
-                  <a className="waves-effect waves-light btn-small red" href="http://gg.gg/ruleCfs" style={{margin: "5px"}}>Post rules</a>
-                  <a className="waves-effect waves-light btn-small blue" href="https://www.fb.com/groups/FPTUCfsCommunity/" style={{margin: "5px"}}>Group Community Student of FPTU HCM</a>
-                  <a className="waves-effect waves-light btn-small orange" href="mailto:fpt.hcm.confess@gmail.com?Subject=Why%20my%confesssion%20not%posted" style={{margin: "5px"}}>Contact Us</a>
+                    <a className="waves-effect waves-light btn-small red" href="http://gg.gg/ruleCfs" style={{ margin: "5px" }}>Post rules</a>
+                    <a className="waves-effect waves-light btn-small blue" href="https://www.fb.com/groups/FPTUCfsCommunity/" style={{ margin: "5px" }}>Group Community Student of FPTU HCM</a>
+                    <a className="waves-effect waves-light btn-small orange" href="mailto:fpt.hcm.confess@gmail.com?Subject=Why%20my%confesssion%20not%posted" style={{ margin: "5px" }}>Contact Us</a>
                   </li>
                 </ul>
-                Your post is check slowest 2 days before posted. If than 2 days your post not seen, please contact with us via email! 😊
+                 Your confession will be carefully checked after 2 days at the latest sent. If your post has still not seen for more than 2 days, please contact us via email. 😊
               </div>
             </div>
             <div className="row">
@@ -259,7 +253,7 @@ export class LoginPage extends Component {
                         <button
                           className="btn waves-effect waves-light green"
                           onClick={() => this.handleSendConfess()}
-                          style={{margin: "5px"}}
+                          style={{ margin: "5px" }}
                         >
                           <i className="material-icons left">check</i>Be brave,
                           send It!
@@ -269,7 +263,7 @@ export class LoginPage extends Component {
                         <button
                           className="btn waves-effect waves-light orange"
                           onClick={() => this.handleImageUpload()}
-                          style={{margin: "5px"}}
+                          style={{ margin: "5px" }}
                         >
                           <i className="material-icons left">file_upload</i>Add
                           Image
@@ -308,7 +302,7 @@ export class LoginPage extends Component {
 
           <div id="login" className="modal">
             <div className="modal-content">
-            <div className="row center"><img src="http://imagizer.imageshack.us/a/img923/2498/D2xGjq.png" width="50%"/></div>
+              <h4>FUHCM Confess report an error!</h4>
               <p>{this.state.modalMessage}</p>
             </div>
             <div className="modal-footer">
