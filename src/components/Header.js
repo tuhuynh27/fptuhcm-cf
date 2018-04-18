@@ -48,10 +48,10 @@ export class Header extends React.Component {
                 <a className="subheader">Menu</a>
               </li>
               <li className={location === "/dashboard/" ? "active" : ""}>
-                <a href="/dashboard/">Dashboard</a>
+                <Link to={`/dashboard/`}>Dashboard</Link>
               </li>
               <li className={location === "/chat/" ? "active" : ""}>
-                <a href="/chat/">Chat</a>
+                <Link to={`/chat/`}>Chat</Link>
               </li>
               <li>
                 <a href="#" onClick={startLogout()}>Logout</a>
