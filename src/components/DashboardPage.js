@@ -62,15 +62,17 @@ class DashboardPage extends Component {
         <tr key={key}>
           <td className="center-align">{index + 1}</td>
           <td>
-            <p>{listConfess[key].message}</p>
-            <p className="right-align"><strong>Time</strong>: <i>{listConfess[key].time}</i></p>
-            <p><strong>Status</strong>:&nbsp;
+            <p className={`${listConfess[key].status === 2 ? "reject-text" : null}`}>
+              {listConfess[key].message}
+              </p>
+            <p className="right-align"><span className="new badge" data-badge-caption="">{listConfess[key].time}</span></p>
+            <div className={`normal-section ${listConfess[key].status === 1 ? "approve-section" : null} ${listConfess[key].status === 2 ? "reject-section" : null}`}>
               {listConfess[key].status === 0 && "Not reviewed yet"}
               {listConfess[key].status === 1 && "Approved"}
               {listConfess[key].status === 2 && "Rejected"}&nbsp;
               {listConfess[key].approver !== "" ? `by ${listConfess[key].approver}` : null}
-            </p>
-            <p>{listConfess[key].status === 0 && <button className="waves-effect waves-light btn green" onClick={() => this.handleApprove(key)}><i className="material-icons left">check</i>Approve</button>} {listConfess[key].status === 0 && <button className="waves-effect waves-light btn pink" onClick={() => this.handleReject(key)}><i className="material-icons left">block</i>Reject</button>}</p>
+            </div>
+            <div>{listConfess[key].status === 0 && <button className="waves-effect waves-light btn green" onClick={() => this.handleApprove(key)}><i className="material-icons left">check</i>Approve</button>} {listConfess[key].status === 0 && <button className="waves-effect waves-light btn pink" onClick={() => this.handleReject(key)}><i className="material-icons left">block</i>Reject</button>}</div>
           </td>
         </tr>
       );
@@ -79,7 +81,7 @@ class DashboardPage extends Component {
     return (
       <div>
         <div className="container-fluid">
-          <h2 className="header center blue-text">Confession Manager</h2>
+          <h2 className="header center blue-text">Confessions Manager</h2>
           <div className="row">
             <table className="highlight">
               <thead>

@@ -1,0 +1,24 @@
+/* Section style */
+.normal-section {
+    font-weight: bold;
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: cadetblue;
+    color: white;
+}
+    
+.reject-section {
+    background-color: orangered;
+    color: white;
+}
+
+.approve-section {
+    background-color: dodgerblue;
+    color: white;
+}
+
+/* Content style */
+.reject-text {
+    text-decoration: line-through;
+}

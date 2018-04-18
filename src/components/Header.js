@@ -8,23 +8,12 @@ import { firebase } from '../firebase/firebase';
 export class Header extends React.Component {
   componentDidMount() {
     this.handleSideNav();
-    this.handleTap(false);
   }
 
   handleSideNav() {
     //side-nav
     var elem = document.querySelector('.sidenav');
     var sideNavInstance = M.Sidenav.init(elem);
-  }
-
-  handleTap(open) {
-    //tap
-    var elem = document.querySelector('.tap-target');
-    var tapInstance = M.FeatureDiscovery.init(elem);
-    if (open) {
-      tapInstance.close();
-      tapInstance.open();
-    }
   }
 
   render() {
@@ -50,7 +39,7 @@ export class Header extends React.Component {
 
             <ul id="nav-mobile" className="sidenav">
               <li>
-                <a href="#"><i className="material-icons">work</i>FU Insight</a>
+                <a href="#"><i className="material-icons">work</i>FPTU HCM Insight</a>
               </li>
               <li>
                 <div className="divider"></div>
@@ -74,12 +63,6 @@ export class Header extends React.Component {
             </a>
           </div>
         </nav>
-
-        <div className="fixed-action-btn direction-top active" style={{ bottom: "45px", right: "24px" }}>
-          <button id="menu" className="btn btn-floating btn-large cyan" onClick={() => this.handleTap(true)}>
-            <i className="material-icons">menu</i>
-          </button>
-        </div>
 
         <div className="tap-target cyan" data-target="menu">
           <div className="tap-target-content white-text">
