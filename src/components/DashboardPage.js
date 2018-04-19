@@ -6,7 +6,8 @@ class DashboardPage extends Component {
     super(props);
     this.state = {
       listConfess: {},
-      loadCount: 10
+      loadCount: 10,
+      confessId: 0
     };
   }
 
@@ -21,6 +22,24 @@ class DashboardPage extends Component {
     });
   }
 
+  loadConfessId(callback) {
+    database.ref("confess").child("confessId").once("value", (data) => {
+      const confessId = data.val().value;
+      this.setState({
+        confessId: confessId
+      });
+      callback(confessId);
+    }, err => {
+      // Error
+    });
+  }
+
+  increaseConfessId() {
+    this.loadConfessId((confessId) => {
+      database.ref("confess").child("confessId").update({ value: confessId + 1 });
+    });
+  }
+
   componentDidMount() {
     this.loadConfess(this.state.loadCount);
   }
@@ -30,7 +49,11 @@ class DashboardPage extends Component {
   }
 
   handleApprove(key) {
-    this.updateConfess(key, { approver: firebase.auth().currentUser.email, status: 1 });
+    this.loadConfessId((confessId) => {
+      this.updateConfess(key, { approver: firebase.auth().currentUser.email, status: 1, id: confessId });
+      this.increaseConfessId();
+    });
+
     M.toast({ html: "Approved!", classes: "rounded" });
   }
 
@@ -64,7 +87,7 @@ class DashboardPage extends Component {
           <td>
             <p className={`${listConfess[key].status === 2 ? "reject-text" : null}`}>
               {listConfess[key].message}
-              </p>
+            </p>
             <p className="right-align"><span className="new badge" data-badge-caption="">{listConfess[key].time}</span></p>
             <div className={`normal-section ${listConfess[key].status === 1 ? "approve-section" : null} ${listConfess[key].status === 2 ? "reject-section" : null}`}>
               {listConfess[key].status === 0 && "Not reviewed yet"}
@@ -72,6 +95,7 @@ class DashboardPage extends Component {
               {listConfess[key].status === 2 && "Rejected"}&nbsp;
               {listConfess[key].approver !== "" ? `by ${listConfess[key].approver}` : null}
             </div>
+            <span className={`normal-section ${listConfess[key].id === 0 || listConfess[key].id === undefined ? "hide" : null}`} style={{marginLeft: "5px", backgroundColor: "slateblue"}}>{listConfess[key].id !== 0 && listConfess[key].id !== undefined ? `ID: ${listConfess[key].id}` : null}</span>
             <div>{listConfess[key].status === 0 && <button className="waves-effect waves-light btn green" onClick={() => this.handleApprove(key)}><i className="material-icons left">check</i>Approve</button>} {listConfess[key].status === 0 && <button className="waves-effect waves-light btn pink" onClick={() => this.handleReject(key)}><i className="material-icons left">block</i>Reject</button>}</div>
           </td>
         </tr>

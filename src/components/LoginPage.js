@@ -98,7 +98,8 @@ export class LoginPage extends Component {
         status: 0,
         approver: "",
         reason: "",
-        hide: false
+        hide: false,
+        id: 0
       };
 
       confessRef.push(data);
