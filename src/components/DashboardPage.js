@@ -82,19 +82,22 @@ class DashboardPage extends Component {
     const keys = Object.keys(listConfess);
     const renderConfess = keys.reverse().map((key, index) => {
       return (
-        <li key={key} className="collection-item">
-          <p className={`${listConfess[key].status === 2 ? "reject-text" : null}`}>
+        <li key={key} className="collection-item avatar">
+          {listConfess[key].status === 0 && <i class="material-icons circle green">hourglass_empty</i>}
+          {listConfess[key].status === 1 && <i class="material-icons circle blue">check</i>}
+          {listConfess[key].status === 2 && <i class="material-icons circle red">clear</i>}
+          <p className={`${listConfess[key].status === 2 ? "reject-text" : null}`} style={{ marginBottom: "10px" }}>
             {listConfess[key].message}
           </p>
           <p className="right-align"><span className="new badge" data-badge-caption="" style={{ margin: "5px" }}>{listConfess[key].time}</span></p>
-          <span className={`normal-section ${listConfess[key].status === 1 ? "approve-section" : null} ${listConfess[key].status === 2 ? "reject-section" : null}`}>
-            {listConfess[key].status === 0 && "Not reviewed yet"}
-            {listConfess[key].status === 1 && "Approved"}
-            {listConfess[key].status === 2 && "Rejected"}&nbsp;
-              {listConfess[key].approver !== "" ? `by ${listConfess[key].approver}` : null}
-          </span>
-          <span className={`normal-section ${listConfess[key].id === 0 || listConfess[key].id === undefined ? "hide" : null}`} style={{ marginLeft: "5px", backgroundColor: "slateblue" }}>{listConfess[key].id !== 0 && listConfess[key].id !== undefined ? `ID: ${listConfess[key].id}` : null}</span>
-          <div>{listConfess[key].status === 0 && <button className="waves-effect waves-light btn green pulse" onClick={() => this.handleApprove(key)} style={{margin: "5px"}}><i className="material-icons left">check</i>Approve</button>} {listConfess[key].status === 0 && <button className="waves-effect waves-light btn pink" onClick={() => this.handleReject(key)} style={{margin: "5px"}}><i className="material-icons left">block</i>Reject</button>}</div>
+          <div className={`chip ${listConfess[key].status === 0 && "hide"}`}>
+            {listConfess[key].approver !== "" ? `${listConfess[key].approver}` : null}
+            <i className="material-icons" style={{float: "left", fontSize: "16px", lineHeight: "32px", paddingRight: "8px"}}>account_circle</i>
+          </div>
+          <div className={`chip ${listConfess[key].id === 0 || listConfess[key].id === undefined ? "hide" : null}`}>
+            {listConfess[key].id !== 0 && listConfess[key].id !== undefined ? `#FPTUC_${listConfess[key].id}` : null}
+          </div>
+          <div>{listConfess[key].status === 0 && <button className="waves-effect waves-light btn-small green pulse" onClick={() => this.handleApprove(key)} style={{ margin: "5px" }}><i className="material-icons left">check</i>Approve</button>} {listConfess[key].status === 0 && <button className="waves-effect waves-light btn-small pink" onClick={() => this.handleReject(key)} style={{ margin: "5px" }}><i className="material-icons left">clear</i>Reject</button>}</div>
         </li>
       );
     });

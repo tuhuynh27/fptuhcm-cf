@@ -56,12 +56,6 @@ export class LoginPage extends Component {
               modalMessage: error.message
             });
             instance.open();
-          },
-          success => {
-            if (success) {
-              M.toast({ html: "Thank you for login to FUHCMCFS Insight!", classes: "rounded" });
-              M.toast({ html: "This system is real-time based so don't use reload (F5) button.", classes: "rounded", displayLength: 10000, inDuration: 3000 });
-            }
           }
         );
       }
@@ -144,7 +138,7 @@ export class LoginPage extends Component {
         <div>
           <div className="container">
             <h1 className="header center blue-text">
-              FPTU HCM Confessions. AdminCP
+              FPTU HCM Confessions Insight
             </h1>
             <div className="row center">
               <h5 className="header col s12 light">
@@ -157,7 +151,7 @@ export class LoginPage extends Component {
             </div> */}
             <div className="row">
               <div className="col s12 m8 offset-m2">
-                <div className="card white darken-1 hoverable">
+                <div className="card white darken-1">
                   <div className="card-content black-text">
                     <div className="card-title blue-text">
                       Login with email and password
@@ -171,12 +165,12 @@ export class LoginPage extends Component {
                         <input id="password" ref="password" type="password" />
                         <label htmlFor="password">Password</label>
                       </div>
-                      <div className="card-action center">
+                      <div className="row center">
                         <button
                           className="btn waves-effect waves-light blue"
                           onClick={e => this.handleEmailLogin(e)}
                         >
-                          <i className="material-icons left">cloud_done</i>Login
+                          <i className="material-icons left">cloud_done</i>Staff Login
                         </button>
                         &nbsp;
                         {/* <button className="btn waves-effect waves-light pink" onClick={() => this.handleEmailLogin(true)}><i className="material-icons left">cloud_upload</i>Signup</button> */}
@@ -224,7 +218,7 @@ export class LoginPage extends Component {
             <div className="row center"><img src="http://imagizer.imageshack.us/a/img923/2498/D2xGjq.png" width="50%" /></div>
             <div className="row">
               <div className="col s8 offset-s2 light">
-                Something is hard to say but we easily write down what we think. Do not think difficultly. We ensure that your secret is obviously safe. ♥<br />
+                Something is hard to say but we easily write down what we think. Do not think difficultly. We ensure that your secret is obviously safe.<br />
                 <ul className="collection">
                   <li className="collection-item">
                     <a className="waves-effect waves-light btn-small red" href="http://gg.gg/ruleCfs" style={{ margin: "5px" }}>Post rules</a>
@@ -237,7 +231,7 @@ export class LoginPage extends Component {
             </div>
             <div className="row">
               <div className="col s12 m8 offset-m2">
-                <div className="card white darken-1 hoverable">
+                <div className="card white darken-1">
                   <div
                     className={`card-content black-text ${
                       isConfessSent ? "hide" : null
