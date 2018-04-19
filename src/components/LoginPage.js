@@ -56,6 +56,12 @@ export class LoginPage extends Component {
               modalMessage: error.message
             });
             instance.open();
+          },
+          success => {
+            if (success) {
+              M.toast({ html: "Thank you for login to FUHCMCFS Insight!", classes: "rounded" });
+              M.toast({ html: "This system is real-time based so don't use reload (F5) button.", classes: "rounded", displayLength: 10000, inDuration: 3000 });
+            }
           }
         );
       }
@@ -226,7 +232,7 @@ export class LoginPage extends Component {
                     <a className="waves-effect waves-light btn-small orange" href="mailto:fpt.hcm.confess@gmail.com?Subject=Why%20my%confesssion%20not%posted" style={{ margin: "5px" }}>Contact Us</a>
                   </li>
                 </ul>
-                 Your confession will be carefully checked after 2 days at the latest sent. If your post has still not seen for more than 2 days, please contact us via email. 😊
+                Your confession will be carefully checked after 2 days at the latest sent. If your post has still not seen for more than 2 days, please contact us via email. 😊
               </div>
             </div>
             <div className="row">

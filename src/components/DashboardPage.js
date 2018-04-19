@@ -82,44 +82,31 @@ class DashboardPage extends Component {
     const keys = Object.keys(listConfess);
     const renderConfess = keys.reverse().map((key, index) => {
       return (
-        <tr key={key}>
-          <td className="center-align">{index + 1}</td>
-          <td>
-            <p className={`${listConfess[key].status === 2 ? "reject-text" : null}`}>
-              {listConfess[key].message}
-            </p>
-            <p className="right-align"><span className="new badge" data-badge-caption="">{listConfess[key].time}</span></p>
-            <div className={`normal-section ${listConfess[key].status === 1 ? "approve-section" : null} ${listConfess[key].status === 2 ? "reject-section" : null}`}>
-              {listConfess[key].status === 0 && "Not reviewed yet"}
-              {listConfess[key].status === 1 && "Approved"}
-              {listConfess[key].status === 2 && "Rejected"}&nbsp;
+        <li key={key} className="collection-item">
+          <p className={`${listConfess[key].status === 2 ? "reject-text" : null}`}>
+            {listConfess[key].message}
+          </p>
+          <p className="right-align"><span className="new badge" data-badge-caption="" style={{ margin: "5px" }}>{listConfess[key].time}</span></p>
+          <span className={`normal-section ${listConfess[key].status === 1 ? "approve-section" : null} ${listConfess[key].status === 2 ? "reject-section" : null}`}>
+            {listConfess[key].status === 0 && "Not reviewed yet"}
+            {listConfess[key].status === 1 && "Approved"}
+            {listConfess[key].status === 2 && "Rejected"}&nbsp;
               {listConfess[key].approver !== "" ? `by ${listConfess[key].approver}` : null}
-            </div>
-            <span className={`normal-section ${listConfess[key].id === 0 || listConfess[key].id === undefined ? "hide" : null}`} style={{marginLeft: "5px", backgroundColor: "slateblue"}}>{listConfess[key].id !== 0 && listConfess[key].id !== undefined ? `ID: ${listConfess[key].id}` : null}</span>
-            <div>{listConfess[key].status === 0 && <button className="waves-effect waves-light btn green" onClick={() => this.handleApprove(key)}><i className="material-icons left">check</i>Approve</button>} {listConfess[key].status === 0 && <button className="waves-effect waves-light btn pink" onClick={() => this.handleReject(key)}><i className="material-icons left">block</i>Reject</button>}</div>
-          </td>
-        </tr>
+          </span>
+          <span className={`normal-section ${listConfess[key].id === 0 || listConfess[key].id === undefined ? "hide" : null}`} style={{ marginLeft: "5px", backgroundColor: "slateblue" }}>{listConfess[key].id !== 0 && listConfess[key].id !== undefined ? `ID: ${listConfess[key].id}` : null}</span>
+          <div>{listConfess[key].status === 0 && <button className="waves-effect waves-light btn green pulse" onClick={() => this.handleApprove(key)} style={{margin: "5px"}}><i className="material-icons left">check</i>Approve</button>} {listConfess[key].status === 0 && <button className="waves-effect waves-light btn pink" onClick={() => this.handleReject(key)} style={{margin: "5px"}}><i className="material-icons left">block</i>Reject</button>}</div>
+        </li>
       );
     });
 
     return (
       <div>
-        <div className="container-fluid">
-          <h2 className="header center blue-text">Confessions Manager</h2>
-          <div className="row">
-            <table className="highlight">
-              <thead>
-                <tr>
-                  <th width="10%" className="center-align">ID</th>
-                  <th width="90%">Confess</th>
-                </tr>
-              </thead>
-              <tbody>
-                {keys.length > 0 ? null : <tr><td colSpan="2">Loading...</td></tr>}
-                {renderConfess}
-              </tbody>
-            </table>
-          </div>
+        <div className="container">
+          <h2 className="header center blue-text">Confessions Management</h2>
+          <ul className="collection">
+            {keys.length > 0 ? null : <li className="collection-item">Loading...</li>}
+            {renderConfess}
+          </ul>
           <div className="row center">
             <button className="waves-effect waves-light btn blue" onClick={() => this.handleLoadMore()}><i className="material-icons left">chevron_right</i>Load more...</button>
           </div>
