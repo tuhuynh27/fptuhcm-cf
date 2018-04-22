@@ -7,7 +7,8 @@ class DashboardPage extends Component {
     this.state = {
       listConfess: {},
       loadCount: 10,
-      confessId: 0
+      confessId: 0,
+      modalMessage: "Nothing is here."
     };
   }
 
@@ -48,13 +49,26 @@ class DashboardPage extends Component {
     database.ref("confess").child(key).update(obj);
   }
 
-  handleApprove(key) {
+  handleApprove(key, message, time) {
+
     this.loadConfessId((confessId) => {
       this.updateConfess(key, { approver: firebase.auth().currentUser.email, status: 1, id: confessId });
       this.increaseConfessId();
-    });
+      M.toast({ html: "Approved!", classes: "rounded" });
 
-    M.toast({ html: "Approved!", classes: "rounded" });
+      const elem = document.querySelector(".modal");
+      const option = {
+        opacity: 0.2,
+        dismissible: false
+      };
+      const instance = M.Modal.init(elem, option);
+      const adminName = firebase.auth().currentUser.email.replace(/@.*$/, "");
+
+      this.setState({
+        modalMessage: `#FPTUC_${confessId} [${time}]<br/>"${message}"<br/>-----------------<br/>${adminName}<br/>#FPTUCfs`
+      });
+      instance.open();
+    });
   }
 
   handleReject(key) {
@@ -92,12 +106,12 @@ class DashboardPage extends Component {
           <p className="right-align"><span className="new badge" data-badge-caption="" style={{ margin: "5px" }}>{listConfess[key].time}</span></p>
           <div className={`chip ${listConfess[key].status === 0 && "hide"}`}>
             {listConfess[key].approver !== "" ? `${listConfess[key].approver}` : null}
-            <i className="material-icons" style={{float: "left", fontSize: "16px", lineHeight: "32px", paddingRight: "8px"}}>account_circle</i>
+            <i className="material-icons" style={{ float: "left", fontSize: "16px", lineHeight: "32px", paddingRight: "8px" }}>account_circle</i>
           </div>
           <div className={`chip ${listConfess[key].id === 0 || listConfess[key].id === undefined ? "hide" : null}`}>
-            {listConfess[key].id !== 0 && listConfess[key].id !== undefined ? `#FPTUC_${listConfess[key].id}` : null}
+            {listConfess[key].id !== 0 && listConfess[key].id !== undefined ? <a href={`https://www.facebook.com/hashtag/fptuc_${listConfess[key].id}`} target="_blank">#FPTUC_{listConfess[key].id}</a> : null}
           </div>
-          <div>{listConfess[key].status === 0 && <button className="waves-effect waves-light btn-small green pulse" onClick={() => this.handleApprove(key)} style={{ margin: "5px" }}><i className="material-icons left">check</i>Approve</button>} {listConfess[key].status === 0 && <button className="waves-effect waves-light btn-small pink" onClick={() => this.handleReject(key)} style={{ margin: "5px" }}><i className="material-icons left">clear</i>Reject</button>}</div>
+          <div>{listConfess[key].status === 0 && <button className="waves-effect waves-light btn-small green pulse" onClick={() => this.handleApprove(key, listConfess[key].message, listConfess[key].time)} style={{ margin: "5px" }}><i className="material-icons left">check</i>Approve</button>} {listConfess[key].status === 0 && <button className="waves-effect waves-light btn-small pink" onClick={() => this.handleReject(key)} style={{ margin: "5px" }}><i className="material-icons left">clear</i>Reject</button>}</div>
         </li>
       );
     });
@@ -112,6 +126,21 @@ class DashboardPage extends Component {
           </ul>
           <div className="row center">
             <button className="waves-effect waves-light btn blue" onClick={() => this.handleLoadMore()}><i className="material-icons left">chevron_right</i>Load more...</button>
+          </div>
+        </div>
+
+        <div id="autopost" className="modal">
+          <div className="modal-content">
+            <h4>Just Copy & Paste on the Page!</h4>
+            <p dangerouslySetInnerHTML={{ __html: this.state.modalMessage }}></p>
+          </div>
+          <div className="modal-footer">
+            <a
+              className="modal-action modal-close waves-effect waves-green btn-flat"
+              onClick={e => this.handleCloseModal(e)}
+            >
+              I'm done!
+              </a>
           </div>
         </div>
       </div>
