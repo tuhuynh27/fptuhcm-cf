@@ -315,7 +315,7 @@ export class LoginPage extends Component {
               </a>
             </div>
           </div>
-        </div >
+        </div>
       );
     }
   }

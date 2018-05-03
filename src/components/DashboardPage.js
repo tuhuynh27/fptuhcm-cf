@@ -1,22 +1,61 @@
 import React, { Component } from 'react';
 import { firebase, database } from '../firebase/firebase';
+import $ from "jquery";
 
 class DashboardPage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       listConfess: {},
       loadCount: 10,
       confessId: 0,
-      modalMessage: "Nothing is here."
+      modalMessage: "Nothing is here.",
+      isLoading: false,
+      totalRecords: 0,
+      // total posted
+      totalUserApproved: 0,
+      totalWaiting: 0
     };
+  }
+
+  getNumOfPost() {
+    database.ref("confess").orderByChild("approver").equalTo(firebase.auth().currentUser.email).on("value", (data) => {
+      const totalUserApproved = data.numChildren();
+      this.setState({
+        totalUserApproved
+      });
+    }, err => {
+      // Error
+    });
+
+    database.ref("confess").orderByChild("status").equalTo(0).on("value", (data) => {
+      const totalWaiting = data.numChildren();
+      this.setState({
+        totalWaiting
+      });
+    }, err => {
+      // Error
+    });
+  }
+
+  setTotalConfess() {
+    database.ref("confess").orderByChild("hide").equalTo(false).on("value", (data) => {
+      const totalRecords = data.numChildren();
+      this.setState({
+        totalRecords
+      });
+    }, err => {
+      // Error
+    });
   }
 
   loadConfess(count) {
     database.ref("confess").orderByChild("hide").equalTo(false).limitToLast(count).on("value", (data) => {
       const listConfess = data.val();
       this.setState({
-        listConfess: listConfess
+        listConfess: listConfess,
+        isLoading: false
       });
     }, err => {
       // Error
@@ -42,7 +81,19 @@ class DashboardPage extends Component {
   }
 
   componentDidMount() {
+    this.setTotalConfess();
     this.loadConfess(this.state.loadCount);
+    const me = this;
+
+    $(window).scroll(function () {
+      if ($(window).scrollTop() + $(window).height() > $(document).height() - 350) {
+        if (!me.state.isLoading && me.state.loadCount <= me.state.totalRecords) {
+          me.handleLoadMore();
+        }
+      }
+    });
+
+    this.getNumOfPost();
   }
 
   updateConfess(key, obj) {
@@ -83,10 +134,10 @@ class DashboardPage extends Component {
 
   handleLoadMore() {
     this.setState({
-      loadCount: this.state.loadCount + 10
+      loadCount: this.state.loadCount + 10,
+      isLoading: true
     }, () => {
       this.loadConfess(this.state.loadCount);
-      M.toast({ html: "Loaded successfully", classes: "rounded" });
     });
   }
 
@@ -95,14 +146,13 @@ class DashboardPage extends Component {
 
     const keys = Object.keys(listConfess);
     const renderConfess = keys.reverse().map((key, index) => {
+      listConfess[key].message = listConfess[key].message.replace(/(?:\r\n|\r|\n)/g, '<br />')
       return (
         <li key={key} className="collection-item avatar">
-          {listConfess[key].status === 0 && <i class="material-icons circle green">hourglass_empty</i>}
-          {listConfess[key].status === 1 && <i class="material-icons circle blue">check</i>}
-          {listConfess[key].status === 2 && <i class="material-icons circle red">clear</i>}
-          <p className={`${listConfess[key].status === 2 ? "reject-text" : null}`} style={{ marginBottom: "10px" }}>
-            {listConfess[key].message}
-          </p>
+          {listConfess[key].status === 0 && <i className="material-icons circle green">hourglass_empty</i>}
+          {listConfess[key].status === 1 && <i className="material-icons circle blue">check</i>}
+          {listConfess[key].status === 2 && <i className="material-icons circle red">clear</i>}
+          <p className={`${listConfess[key].status === 2 ? "reject-text" : null}`} style={{ marginBottom: "10px" }} dangerouslySetInnerHTML={{ __html: listConfess[key].message }}></p>
           <p className="right-align"><span className="new badge" data-badge-caption="" style={{ margin: "5px" }}>{listConfess[key].time}</span></p>
           <div className={`chip ${listConfess[key].status === 0 && "hide"}`}>
             {listConfess[key].approver !== "" ? `${listConfess[key].approver}` : null}
@@ -116,16 +166,81 @@ class DashboardPage extends Component {
       );
     });
 
+    const renderLoading = () => {
+      return (
+        <div className="preloader-wrapper big active">
+          <div className="spinner-layer spinner-blue">
+            <div className="circle-clipper left">
+              <div className="circle"></div>
+            </div><div className="gap-patch">
+              <div className="circle"></div>
+            </div><div className="circle-clipper right">
+              <div className="circle"></div>
+            </div>
+          </div>
+
+          <div className="spinner-layer spinner-red">
+            <div className="circle-clipper left">
+              <div className="circle"></div>
+            </div><div className="gap-patch">
+              <div className="circle"></div>
+            </div><div className="circle-clipper right">
+              <div className="circle"></div>
+            </div>
+          </div>
+
+          <div className="spinner-layer spinner-yellow">
+            <div className="circle-clipper left">
+              <div className="circle"></div>
+            </div><div className="gap-patch">
+              <div className="circle"></div>
+            </div><div className="circle-clipper right">
+              <div className="circle"></div>
+            </div>
+          </div>
+
+          <div className="spinner-layer spinner-green">
+            <div className="circle-clipper left">
+              <div className="circle"></div>
+            </div><div className="gap-patch">
+              <div className="circle"></div>
+            </div><div className="circle-clipper right">
+              <div className="circle"></div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div>
         <div className="container">
-          <h2 className="header center blue-text">Confessions Management</h2>
+          <div className="row">
+            <div className="col s12">
+              <div className="card blue-grey darken-1" style={{marginTop: "20px"}}>
+                <div className="card-content white-text">
+                  <span className="card-title"><b class="small material-icons">insert_chart</b> <strong>Developer Note</strong>: Version @1.5 - Updated at May 5 2018</span>
+                  <div style={{padding: "10px", marginBottom: "20px", border: "2px solid white"}}>
+                    <p><strong>Change Logs for new version: </strong></p>
+                    <p>- Fix bugs HTML render for "\n" item, enter character in confessions solved.</p>
+                    <p>- Added dashboard statics.</p>
+                    <p>- Fix bug automatic load more.</p>
+                  </div>
+                  <p>Hello <strong>{firebase.auth().currentUser.email.replace(/@.*$/, "")}</strong>, have a nice day!</p>
+                  <p>Total confession were sent to system: <strong>{this.state.totalRecords === 0 ? "Loading...": this.state.totalRecords}</strong></p>
+                  <p>You approved/rejected <strong>{this.state.totalUserApproved} confessions</strong>, which is <strong>{(this.state.totalRecords !== 0 && this.state.totalUserApproved !== 0) ? ((this.state.totalUserApproved / this.state.totalRecords * 100).toFixed(2)) : "0"}%</strong> of total</p>
+                  <p>There is/are <strong>{this.state.totalWaiting}</strong> confession(s) waiting for approval</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <ul className="collection">
-            {keys.length > 0 ? null : <li className="collection-item">Loading...</li>}
+            {keys.length > 0 ? null : <li className="collection-item center">{renderLoading()}</li>}
             {renderConfess}
           </ul>
           <div className="row center">
-            <button className="waves-effect waves-light btn blue" onClick={() => this.handleLoadMore()}><i className="material-icons left">chevron_right</i>Load more...</button>
+            {this.state.isLoading && renderLoading()}
           </div>
         </div>
 
