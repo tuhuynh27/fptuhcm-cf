@@ -24,7 +24,7 @@ export class Header extends React.Component {
       <div>
         <nav className="light-blue lighten-1" role="navigation">
           <div className="nav-wrapper container">
-            <a id="logo-container" className="brand-logo"><i className="material-icons">work</i>FPTUCFS</a>
+            <a id="logo-container" className="brand-logo"><i className="material-icons">work</i>FPTU.CF</a>
             <ul className="right hide-on-med-and-down">
               <li className={location === "/dashboard/" ? "active" : ""}>
                 <Link to={`/dashboard/`}><i className="material-icons left">dashboard</i>Dashboard</Link>

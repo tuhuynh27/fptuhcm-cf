@@ -29,7 +29,7 @@ export const Footer = () => {
                                 <a className="white-text" href="http://daihoc.fpt.edu.vn/" target="_blank">FPT University Home</a>
                             </li>
                             <li>
-                                <a className="white-text" href="https://www.facebook.com/FuHcmConfess/" target="_blank">FPTU HCM Confessions</a>
+                                <a className="white-text" href="https://www.facebook.com/FPTUHCMConfessions/" target="_blank">FPTU HCM Confessions</a>
                             </li>
                         </ul>
                     </div>
@@ -48,7 +48,7 @@ export const Footer = () => {
             </div>
             <div className="footer-copyright">
                 <div className="container">
-                    &copy; 2018 Developed by <a href="https://www.facebook.com/mr.huynhminhtu" target="_blank" style={{color: "white"}}>TuHM</a> with &hearts; in <a className="white-text text-lighten-3" href="http://codemagic.space" target="_blank">Code Magic Space</a>. <a href="https://www.facebook.com/messages/t/mr.huynhminhtu" target="_blank"><button className="btn-small pink waves-effect waves-light right pulse" style={{margin: "5px"}}><i className="material-icons left">bug_report</i> Report bug</button></a>
+                    &copy; 2018 Developed by <a href="https://www.facebook.com/mr.huynhminhtu" target="_blank" style={{color: "white"}}>TuHM</a> with &hearts; in <a className="white-text text-lighten-3" href="http://gosu.team" target="_blank">FPT University HCMC</a>. <a href="https://www.facebook.com/messages/t/mr.huynhminhtu" target="_blank"><button className="btn-small pink waves-effect waves-light right pulse" style={{margin: "5px"}}><i className="material-icons left">bug_report</i> Report bug</button></a>
                 </div>
             </div>
         </footer>

@@ -219,13 +219,6 @@ class DashboardPage extends Component {
             <div className="col s12">
               <div className="card blue-grey darken-1" style={{marginTop: "20px"}}>
                 <div className="card-content white-text">
-                  <span className="card-title"><b class="small material-icons">insert_chart</b> <strong>Developer Note</strong>: Version @1.5 - Updated at May 5 2018</span>
-                  <div style={{padding: "10px", marginBottom: "20px", border: "2px solid white"}}>
-                    <p><strong>Change Logs for new version: </strong></p>
-                    <p>- Fix bugs HTML render for "\n" item, enter character in confessions solved.</p>
-                    <p>- Added dashboard statics.</p>
-                    <p>- Fix bug automatic load more.</p>
-                  </div>
                   <p>Hello <strong>{firebase.auth().currentUser.email.replace(/@.*$/, "")}</strong>, have a nice day!</p>
                   <p>Total confession were sent to system: <strong>{this.state.totalRecords === 0 ? "Loading...": this.state.totalRecords}</strong></p>
                   <p>You approved/rejected <strong>{this.state.totalUserApproved} confessions</strong>, which is <strong>{(this.state.totalRecords !== 0 && this.state.totalUserApproved !== 0) ? ((this.state.totalUserApproved / this.state.totalRecords * 100).toFixed(2)) : "0"}%</strong> of total</p>

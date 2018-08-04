@@ -215,10 +215,10 @@ export class LoginPage extends Component {
       return (
         <div>
           <div className="container">
-            <div className="row center"><img src="http://imagizer.imageshack.us/a/img923/2498/D2xGjq.png" width="50%" /></div>
+            <div className="row center"><img src="https://imagizer.imageshack.us/a/img923/2498/D2xGjq.png" width="50%" /></div>
             <div className="row">
               <div className="col s8 offset-s2 light">
-                Something is hard to say but we easily write down what we think. Do not think difficultly. We ensure that your secret is obviously safe.<br />
+                Something is hard to say but we easily write down what we think. Please don't think too much, just write it out. By the way, we ensure that your secret is obviously safe.<br />
                 <ul className="collection">
                   <li className="collection-item">
                     <a className="waves-effect waves-light btn-small red" href="http://gg.gg/ruleCfs" style={{ margin: "5px" }}>Post rules</a>
@@ -226,7 +226,7 @@ export class LoginPage extends Component {
                     <a className="waves-effect waves-light btn-small orange" href="mailto:fpt.hcm.confess@gmail.com?Subject=Why%20my%confesssion%20not%posted" style={{ margin: "5px" }}>Contact Us</a>
                   </li>
                 </ul>
-                Your confession will be carefully checked after 2 days at the latest sent. If your post has still not seen for more than 2 days, please contact us via email. 😊
+                Your confession will be carefully hold for checking up 2 days. If your post has still not been seen for more than 2 days, please contact us via email or fan page.
               </div>
             </div>
             <div className="row">
