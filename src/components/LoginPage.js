@@ -10,13 +10,20 @@ import { database } from "../firebase/firebase";
 
 import Footer from "../components/Footer";
 
+const shortid = require('shortid');
+
 export class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoginMode: false,
       isConfessSent: false,
-      modalMessage: ""
+      isConfessSearch: false,
+      modalMessage: "",
+      shortID: "Not generated",
+      searchErr: false,
+      searchDone: false,
+      searchObj: {}
     };
   }
 
@@ -92,6 +99,7 @@ export class LoginPage extends Component {
       instance.open();
     } else {
       const confessRef = database.ref("confess");
+      const shortID = shortid.generate();
       const data = {
         message: this.refs.message.value,
         time: new Date().toLocaleString(),
@@ -99,7 +107,8 @@ export class LoginPage extends Component {
         approver: "",
         reason: "",
         hide: false,
-        id: 0
+        id: 0,
+        shortID: shortID
       };
 
       confessRef.push(data);
@@ -110,7 +119,8 @@ export class LoginPage extends Component {
       });
 
       this.setState({
-        isConfessSent: true
+        isConfessSent: true,
+        shortID: shortID
       });
     }
   }
@@ -130,8 +140,37 @@ export class LoginPage extends Component {
     instance.open();
   }
 
+  handleOpenSearch() {
+    this.setState({
+      isConfessSearch: !this.state.isConfessSearch
+    });
+  }
+
+  handleSearchID(e) {
+    e.preventDefault();
+
+    const confessRef = database.ref("confess");
+
+    database.ref("confess").orderByChild("shortID").equalTo(this.refs.shortID.value).once("value", (data) => {
+      if (data.numChildren() === 0) {
+        this.setState({
+          searchErr: true
+        });
+      } else {
+        this.setState({
+          searchDone: true,
+          searchErr: false,
+          searchObj: data.val()[Object.keys(data.val())[0]]
+        });
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
   render() {
     const { isLoginMode } = this.state;
+    const { searchDone, searchObj, searchErr } = this.state;
 
     if (isLoginMode) {
       return (
@@ -215,7 +254,7 @@ export class LoginPage extends Component {
       return (
         <div>
           <div className="container">
-            <div className="row center"><img src="https://imagizer.imageshack.us/a/img923/2498/D2xGjq.png" width="50%" /></div>
+            <div className="row center"><img src="https://firebasestorage.googleapis.com/v0/b/boiler-plate-1371f.appspot.com/o/logo.png?alt=media&token=7f391463-6bc1-4812-8cb7-a4bb68c6fbb8" width="50%" /></div>
             <div className="row">
               <div className="col s8 offset-s2 light">
                 Something is hard to say but we easily write down what we think. Please don't think too much, just write it out. By the way, we ensure that your secret is obviously safe.<br />
@@ -284,9 +323,55 @@ export class LoginPage extends Component {
                       Thank you! If your confess is valid, it will be available
                       on fanpage soon!
                     </div>
+                    <div>
+                      Here is your ID to check if it was posted or rejected by admin for any specific reason: <b>{this.state.shortID}</b>
+                    </div>
+                    <div>You can use the ID to check by clicking 'ID Check' button below.</div>
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div className="row" className={`${this.state.isConfessSearch ? null : "hide" }`}>
+              <div className="card-panel yellow">
+                <form onSubmit={(e) => this.handleSearchID(e)}>
+                  <div className="input-field">
+                    <input disabled={this.state.searchDone} id="shortid" ref="shortID" type="text" className="validate" />
+                    <label htmlFor="shortid">Enter Confess ID here to get its status</label>
+                  </div>
+                </form>
+
+                <div
+                  className={`${
+                    searchErr ? null : "hide"
+                    }`}
+                >
+                 <div>Not a valid ID!!</div>
+                </div>
+
+                <div
+                  className={`${
+                    searchDone ? null : "hide"
+                    }`}
+                >
+                  <div>Confessions sent at {searchObj.time} is {!searchObj && "Loading..."} <b>{searchObj.status === 0 && "pending"}{searchObj.status === 1 && "approved"}{searchObj.status === 2 && "rejected"}</b>.</div>
+                  <div>{searchObj.status === 2 && `This confess was rejected for the reason of 'invalid content' by admin: ${searchObj.approver}.`}</div>
+                  <div
+                  className={`${
+                    searchObj.status === 1 ? null : "hide"
+                    }`}
+                  >
+                    <div>The hashtag of the approved confession is <b><a href={`https://www.facebook.com/hashtag/fptuc_${searchObj.id}`} target="_blank">#FPTU_{searchObj.id}</a></b>.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <button className="btn waves-effect waves-light pink right" onClick={() => this.handleOpenSearch()}>
+                <i className="material-icons left">search</i>
+                Confession ID Check
+              </button>
             </div>
 
             <div className="row">
@@ -295,7 +380,7 @@ export class LoginPage extends Component {
                 onClick={() => this.handleChangeMode()}
               >
                 <i className="material-icons left">chevron_right</i>Login to
-                FPTU HCM Confessions Insight
+								FPTU HCM Confessions Insight
               </button>
             </div>
           </div>
